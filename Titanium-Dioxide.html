@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Titanium Dioxide - SWASTIQ CORPORATION</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+    :root {
+        --color-primary: #111827; /* Dark Navy */
+        --color-accent: #3b82f6;  /* Blue Accent */
+        --color-accent-hover: #2563eb;
+        --font-family-main: 'Poppins', sans-serif;
+    }
+
+    body {
+        font-family: var(--font-family-main);
+        color: #374151; /* Gray-700 */
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        color: var(--color-primary);
+    }
+
+    /* --- Dynamic Header on Scroll --- */
+    header {
+        transition: background-color 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
+    }
+    header.scrolled {
+        background-color: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    }
+    
+    /* --- Mobile Menu Styles --- */
+    .mobile-menu { display: none; background-color: rgba(255, 255, 255, 0.98); backdrop-filter: blur(5px); }
+    .mobile-menu.active { display: block; }
+
+    /* --- On-Scroll Reveal Animation --- */
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.6s ease-out; }
+    .reveal.is-visible { opacity: 1; transform: translateY(0); }
+    
+    .download-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: linear-gradient(to right, #1e2943, #111827);
+        color: white;
+        padding: 0.5rem 1.5rem;
+        border-radius: 9999px;
+        font-weight: 600;
+        box-shadow: 0 4px 10px rgba(59, 130, 246, 0.4);
+        transition: all 0.3s ease;
+    }
+    .download-btn:hover {
+        transform: translateY(-2px) scale(1.05);
+        box-shadow: 0 6px 14px rgba(59, 130, 246, 0.6);
+        background: linear-gradient(to right, #111827, #1e2943);
+    }
+
+    /* --- Service Page Hero --- */
+    .service-hero {
+        background-image: linear-gradient(rgba(17, 24, 39, 0.75), rgba(17, 24, 39, 0.75)), url('https://images.unsplash.com/photo-1574725230642-2751b14c50d3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80');
+        background-size: cover;
+        background-position: center;
+    }
+    .service-hero-fallback {
+        background: linear-gradient(135deg, #3b82f6, #111827);
+    }
+
+    /* --- New Button Styles from Uiverse.io --- */
+    .button {
+        position: relative;
+        transition: all 0.3s ease-in-out;
+        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+        padding-block: 0.5rem;
+        padding-inline: 1.25rem;
+        background-color: rgb(0 107 179);
+        border-radius: 9999px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: #ffff;
+        gap: 10px;
+        font-weight: bold;
+        border: 3px solid #ffffff4d;
+        outline: none;
+        overflow: hidden;
+        font-size: 15px;
+    }
+
+    .icon {
+        width: 24px;
+        height: 24px;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .button:hover {
+        transform: scale(1.05);
+        border-color: #fff9;
+    }
+
+    .button:hover .icon {
+        transform: translate(4px);
+    }
+
+    .button:hover::before {
+        animation: shine 1.5s ease-out infinite;
+    }
+
+    .button::before {
+        content: "";
+        position: absolute;
+        width: 100px;
+        height: 100%;
+        background-image: linear-gradient(
+            120deg,
+            rgba(255, 255, 255, 0) 30%,
+            rgba(255, 255, 255, 0.8),
+            rgba(255, 255, 255, 0) 70%
+        );
+        top: 0;
+        left: -100px;
+        opacity: 0.6;
+    }
+
+    @keyframes shine {
+        0% {
+            left: -100px;
+        }
+        60% {
+            left: 100%;
+        }
+        to {
+            left: 100%;
+        }
+    }
+
+    /* --- Logo Carousel Styles --- */
+    :root {
+        --logo-gap: 3rem;
+        --logo-speed: 30s;
+        --logo-height: 56px;
+        --logo-row-padding: 1rem;
+        --logo-fade-width: 60px;
+    }
+    .logo-carousel-title {
+        margin-bottom: 2rem;
+        font-weight: 700;
+        letter-spacing: .2px;
+        font-size: clamp(2rem, 5vw, 2.5rem);
+        color: #1f2328;
+        text-align: center;
+    }
+    .scroller {
+        position: relative;
+        overflow: hidden;
+        mask-image: linear-gradient(to right, transparent, #000 var(--logo-fade-width), #000 calc(100% - var(--logo-fade-width)), transparent);
+        -webkit-mask-image: linear-gradient(to right, transparent, #000 var(--logo-fade-width), #000 calc(100% - var(--logo-fade-width)), transparent);
+        border-radius: 16px;
+        background: linear-gradient(180deg, #fff, #f4f6f8); 
+        box-shadow: 0 1px 0 rgba(0,0,0,.06) inset;
+    }
+    .scroller__track {
+        display: flex;
+        gap: var(--logo-gap);
+        align-items: center;
+        padding: var(--logo-row-padding);
+        will-change: transform;
+        animation: scroll-right var(--logo-speed) linear infinite;
+    }
+    .scroller:hover .scroller__track {
+        animation-play-state: paused;
+    }
+    @media (prefers-reduced-motion: reduce) {
+        .scroller__track { animation: none; }
+    }
+    @keyframes scroll-right {
+        from { transform: translateX(-50%); }
+        to   { transform: translateX(0); }
+    }
+    .logo {
+        flex: 0 0 auto;
+        display: grid;
+        place-items: center;
+        height: calc(var(--logo-height) + 16px);
+        padding: .5rem 1rem;
+        border-radius: 12px;
+        background: #ffffff; 
+        box-shadow: 0 1px 2px rgba(0,0,0,.06);
+        transition: transform .25s ease, background-color .25s ease, box-shadow .25s ease, filter .25s ease;
+    }
+    .logo:hover {  
+        transform: translateY(-2px) scale(1.02);
+        box-shadow: 0 8px 20px rgba(0,0,0,.1);
+    }
+    .logo img {
+        display: block;
+        height: var(--logo-height);
+        width: auto;
+        filter: grayscale(100%) contrast(1.05) saturate(0.6);
+        opacity: .9;
+        transition: filter .25s ease, opacity .25s ease;
+    }
+    .logo:hover img {
+        filter: grayscale(0%) saturate(1);
+        opacity: 1;
+    }
+    @media (max-width: 480px) {
+        :root { --logo-gap: 1.5rem; --logo-fade-width: 30px; }
+    }
+    
+    /* Modal Styles */
+    #brochure-modal {
+        z-index: 9999; /* Ensure modal is on top of all content */
+    }
+    .modal-hidden {
+        display: none;
+    }
+</style>
+</head>
+<body class="bg-gray-50">
+
+    <header class="fixed top-0 left-0 right-0 z-50 py-4 bg-white bg-opacity-90 shadow-md">
+        <nav class="container mx-auto flex justify-between items-center px-6">
+            <a href="index.html" class="flex items-center space-x-2 flex-shrink-0">
+                <img src="logo.png" alt="SWASTIQ CORPORATION Logo" class="h-10">
+                <span class="text-xl font-bold text-gray-800">SWASTIQ</span>
+            </a>
+
+            <div class="hidden md:flex items-center space-x-6">
+                <ul class="flex items-center space-x-6">
+                    <li><a href="index.html#home" class="text-gray-700 hover:text-blue-600 font-medium transition whitespace-nowrap">Home</a></li>
+                    <li><a href="index.html#about" class="text-gray-700 hover:text-blue-600 font-medium transition whitespace-nowrap">About</a></li>
+                    <li><a href="index.html#services" class="text-gray-700 hover:text-blue-600 font-medium transition whitespace-nowrap">Products</a></li>
+                    <li><a href="index.html#contact" class="text-gray-700 hover:text-blue-600 font-medium transition whitespace-nowrap">Contact</a></li>
+                </ul>
+                <button class="download-btn whitespace-nowrap brochure-trigger"><i class="fas fa-file-download"></i> Brochure</button>
+            </div>
+
+            <div class="md:hidden flex items-center">
+                <button id="hamburger-button" class="text-gray-800 focus:outline-none">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </nav>
+        
+        <div id="mobile-menu" class="mobile-menu md:hidden shadow-lg">
+            <ul class="flex flex-col space-y-2 px-6 py-4">
+                <li><a href="index.html#home" class="block text-gray-700 hover:text-blue-600 py-2 font-medium">Home</a></li>
+                <li><a href="index.html#about" class="block text-gray-700 hover:text-blue-600 py-2 font-medium">About Us</a></li>
+                <li><a href="index.html#services" class="block text-gray-700 hover:text-blue-600 py-2 font-medium">Products</a></li>
+                <li><a href="index.html#contact" class="block text-gray-700 hover:text-blue-600 py-2 font-medium">Contact Us</a></li>
+                <li><button class="block download-btn text-center mt-4 w-full brochure-trigger"><i class="fas fa-file-download"></i> Download Brochure</button></li>
+            </ul>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="service-hero service-hero-fallback text-white pt-32 pb-20">
+            <div class="container mx-auto px-8 text-center reveal">
+                 <h1 class="text-4xl md:text-6xl font-extrabold text-blue-300 mb-0">Titanium Dioxide (TiO₂)</h1>
+            </div>
+        </section>
+
+        <!-- Product Overview Section -->
+        <section class="py-20 lg:py-28 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div class="reveal">
+                        <img src="Images/Titanium.jpg" alt="White powder of Titanium Dioxide" class="rounded-xl shadow-2xl w-full max-w-md mx-auto h-auto object-cover">
+                    </div>
+                    <div class="reveal">
+                        <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-6">Overview</h2>
+                        <p class="text-gray-600 mb-4 text-lg">Titanium Dioxide (TiO₂) is the most widely used white pigment in the world, prized for its exceptional brightness, high refractive index, and opacity. It is an inert, non-toxic mineral that provides whiteness and hiding power to a vast range of products.</p>
+                        <p class="text-gray-600 text-lg mb-8">At SWASTIQ CORPORATION, we supply high-quality Rutile and Anatase grades of Titanium Dioxide, ensuring superior performance, color consistency, and UV resistance for our clients in the paints, plastics, paper, and cosmetics industries.</p>
+                        <a href="https://drive.google.com/file/d/1AlUzkUs2mS8Ltl_kj67-AZr63t9S54pK/view?usp=sharing" class="download-btn">
+                            <i class="fas fa-file-download mr-2"></i> Download Brochure
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Applications Section -->
+        <section id="applications" class="py-20 lg:py-28 bg-gray-100">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16 reveal">
+                    <h2 class="text-4xl lg:text-5xl font-bold text-gray-900">Applications</h2>
+                    <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">Our Titanium Dioxide grades are tailored for performance across a wide spectrum of industrial and consumer applications.</p>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+                    
+                    <!-- Card 1: Paints -->
+                    <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden reveal flex flex-col">
+                        <div class="overflow-hidden"><a href="paints.html" class="block"><img src="Images/Paints.jpg" alt="Paints" class="w-full h-48 object-cover transition-transform duration-300 hover:scale-110"></a></div>
+                        <div class="p-6 flex flex-col items-center text-center flex-grow">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-4">Paints</h3>
+                            <a href="paints.html" class="mt-auto">
+                                <button class="button">
+                                  Read More
+                                  <svg fill="currentColor" viewBox="0 0 24 24" class="icon">
+                                    <path clip-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm4.28 10.28a.75.75 0 000-1.06l-3-3a.75.75 0 10-1.06 1.06l1.72 1.72H8.25a.75.75 0 000 1.5h5.69l-1.72 1.72a.75.75 0 101.06 1.06l3-3z" fill-rule="evenodd"></path>
+                                  </svg>
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Card 2: Plastics -->
+                    <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden reveal flex flex-col">
+                        <div class="overflow-hidden"><a href="plastics.html" class="block"><img src="Images/Plastics.jpg" alt="Plastics" class="w-full h-48 object-cover transition-transform duration-300 hover:scale-110"></a></div>
+                        <div class="p-6 flex flex-col items-center text-center flex-grow">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-4">Plastics</h3>
+                            <a href="plastics.html" class="mt-auto">
+                                <button class="button">
+                                  Read More
+                                  <svg fill="currentColor" viewBox="0 0 24 24" class="icon">
+                                    <path clip-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm4.28 10.28a.75.75 0 000-1.06l-3-3a.75.75 0 10-1.06 1.06l1.72 1.72H8.25a.75.75 0 000 1.5h5.69l-1.72 1.72a.75.75 0 101.06 1.06l3-3z" fill-rule="evenodd"></path>
+                                  </svg>
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Card 3: Inks -->
+                    <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden reveal flex flex-col">
+                        <div class="overflow-hidden"><a href="inks.html" class="block"><img src="Images/Inks.jpeg" alt="Inks" class="w-full h-48 object-cover transition-transform duration-300 hover:scale-110"></a></div>
+                        <div class="p-6 flex flex-col items-center text-center flex-grow">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-4">Inks</h3>
+                            <a href="inks.html" class="mt-auto">
+                                <button class="button">
+                                  Read More
+                                  <svg fill="currentColor" viewBox="0 0 24 24" class="icon">
+                                    <path clip-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm4.28 10.28a.75.75 0 000-1.06l-3-3a.75.75 0 10-1.06 1.06l1.72 1.72H8.25a.75.75 0 000 1.5h5.69l-1.72 1.72a.75.75 0 101.06 1.06l3-3z" fill-rule="evenodd"></path>
+                                  </svg>
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Card 4: General Purpose -->
+                    <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden reveal flex flex-col">
+                        <div class="overflow-hidden"><a href="general-purpose-tio2.html" class="block"><img src="Images/Titanium-apk.jpeg" alt="General Purpose" class="w-full h-48 object-cover transition-transform duration-300 hover:scale-110"></a></div>
+                        <div class="p-6 flex flex-col items-center text-center flex-grow">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-4">General Purpose</h3>
+                            <a href="general-purpose-tio2.html" class="mt-auto">
+                                <button class="button">
+                                  Read More
+                                  <svg fill="currentColor" viewBox="0 0 24 24" class="icon">
+                                    <path clip-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm4.28 10.28a.75.75 0 000-1.06l-3-3a.75.75 0 10-1.06 1.06l1.72 1.72H8.25a.75.75 0 000 1.5h5.69l-1.72 1.72a.75.75 0 101.06 1.06l3-3z" fill-rule="evenodd"></path>
+                                  </svg>
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Card 5: Paper -->
+                    <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden reveal flex flex-col">
+                        <div class="overflow-hidden"><a href="paper.html" class="block"><img src="Images/Paper.jpg" alt="Paper" class="w-full h-48 object-cover transition-transform duration-300 hover:scale-110"></a></div>
+                        <div class="p-6 flex flex-col items-center text-center flex-grow">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-4">Paper</h3>
+                            <a href="paper.html" class="mt-auto">
+                                <button class="button">
+                                  Read More
+                                  <svg fill="currentColor" viewBox="0 0 24 24" class="icon">
+                                    <path clip-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm4.28 10.28a.75.75 0 000-1.06l-3-3a.75.75 0 10-1.06 1.06l1.72 1.72H8.25a.75.75 0 000 1.5h5.69l-1.72 1.72a.75.75 0 101.06 1.06l3-3z" fill-rule="evenodd"></path>
+                                  </svg>
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Card 6: Tiles & Ceramics -->
+                    <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden reveal flex flex-col">
+                        <div class="overflow-hidden"><a href="tiles-ceramics.html" class="block"><img src="Images/Tiles.jpg" alt="Tiles & Ceramics" class="w-full h-48 object-cover transition-transform duration-300 hover:scale-110"></a></div>
+                        <div class="p-6 flex flex-col items-center text-center flex-grow">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-4">Tiles & Ceramics</h3>
+                            <a href="tiles-ceramics.html" class="mt-auto">
+                                <button class="button">
+                                  Read More
+                                  <svg fill="currentColor" viewBox="0 0 24 24" class="icon">
+                                    <path clip-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm4.28 10.28a.75.75 0 000-1.06l-3-3a.75.75 0 10-1.06 1.06l1.72 1.72H8.25a.75.75 0 000 1.5h5.69l-1.72 1.72a.75.75 0 101.06 1.06l3-3z" fill-rule="evenodd"></path>
+                                  </svg>
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Companies Associated Section -->
+        <section class="py-15 lg:py-24 bg-white">
+            <div class="container mx-auto px-26">
+                <h2 id="logo-strip-heading" class="logo-carousel-title reveal">Companies associated with us:</h2>
+                <div class="scroller reveal" role="region" aria-label="Our partners' logos scrolling horizontally">
+                    <div class="scroller__track" id="logoTrack">
+                        <a class="logo" href="#" aria-label="Company 1"><img src="Images/Picture1.png" alt="Company 1 logo" loading="lazy" decoding="async"></a>
+                        <a class="logo" href="#" aria-label="Company 2"><img src="Images/Picture2.png" alt="Company 2 logo" loading="lazy" decoding="async"></a>
+                        <a class="logo" href="#" aria-label="Company 3"><img src="Images/Picture3.png" alt="Company 3 logo" loading="lazy" decoding="async"></a>
+                        <a class="logo" href="#" aria-label="Company 4"><img src="Images/Picture4.png" alt="Company 4 logo" loading="lazy" decoding="async"></a>
+                        <a class="logo" href="#" aria-label="Company 5"><img src="Images/Picture5.png" alt="Company 5 logo" loading="lazy" decoding="async"></a>
+                        <a class="logo" href="#" aria-label="Company 6"><img src="Images/Picture6.png" alt="Company 6 logo" loading="lazy" decoding="async"></a>
+                        <a class="logo" href="#" aria-label="Company 7"><img src="Images/Picture7.png" alt="Company 7 logo" loading="lazy" decoding="async"></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 bg-gray-100">
+            <div class="container mx-auto px-6 text-center reveal">
+                <h2 class="text-3xl lg:text-4xl font-bold text-gray-900">Looking for a Titanium Dioxide Supplier?</h2>
+                <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto mb-8">Contact our experts to discuss your specific needs for Rutile or Anatase grades, or to request a technical data sheet.</p>
+                <a href="#contact" class="download-btn">
+                    <i class="fas fa-envelope mr-2"></i> Get in Touch
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer id="contact" class="bg-gray-900 text-white pt-20 pb-8">
+        <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+            <div class="lg:col-span-2">
+                <h3 class="text-2xl font-bold mb-4 text-white">SWASTIQ CORPORATION</h3>
+                <p class="text-gray-400 mb-6 max-w-md">Your premier partner for quality-driven pharmaceutical and chemical solutions worldwide.</p>
+                <div class="space-y-3 text-gray-300">
+                    <p><i class="fas fa-phone-alt fa-fw mr-2 text-blue-400"></i> +91 79909 94921</p>
+                    <p><i class="fas fa-envelope fa-fw mr-2 text-blue-400"></i> swastiqcorp@gmail.com</p>
+                    <p><i class="fas fa-map-marker-alt fa-fw mr-2 text-blue-400"></i> The Capital, Science City Road, Sola, Ahmedabad, Gujarat, India(380060)</p>
+                </div>
+            </div>
+            <div>
+                <h3 class="text-xl font-semibold mb-4 text-white">Quick Links</h3>
+                <ul class="space-y-3">
+                    <li><a href="index.html#home" class="text-gray-400 hover:text-blue-400 transition-colors duration-300">Home</a></li>
+                    <li><a href="index.html#about" class="text-gray-400 hover:text-blue-400 transition-colors duration-300">About Us</a></li>
+                    <li><a href="index.html#services" class="text-gray-400 hover:text-blue-400 transition-colors duration-300">Products</a></li>
+                    <li><a href="index.html#contact" class="text-gray-400 hover:text-blue-400 transition-colors duration-300">Contact Us</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-xl font-semibold mb-4 text-white">Get in Touch</h3>
+                <form class="form-box" action="https://api.web3forms.com/submit" method="POST">
+                    
+                    <input type="hidden" name="access_key" value="659bfe86-d744-450b-a967-b59a73e31470"/>
+
+                    <input type="text" name="name" placeholder="Your Name" class="w-full p-3 mb-3 bg-gray-800 border border-gray-700 rounded-md text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition" required>
+                    <input type="email" name="email" placeholder="Your Email" class="w-full p-3 mb-3 bg-gray-800 border border-gray-700 rounded-md text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition" required>
+                    <textarea name="message" placeholder="Your Message" rows="3" class="w-full p-3 mb-3 bg-gray-800 border border-gray-700 rounded-md text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition" required></textarea>
+                    <button type="submit" class="w-full bg-blue-600 text-white px-6 py-3 rounded-md font-semibold hover:bg-blue-700 transition duration-300">Send Message</button>
+                </form>
+            </div>
+        </div>
+        <div class="text-center text-gray-500 mt-16 border-t border-gray-800 pt-8">
+            &copy; <span id="current-year"></span> SWASTIQ CORPORATION. All Rights Reserved.
+        </div>
+    </footer>
+
+    <!-- Brochure Download Modal -->
+    <div id="brochure-modal" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 modal-hidden">
+        <div class="bg-white rounded-xl shadow-2xl p-8 max-w-md w-full relative transform transition-all scale-95 opacity-0" id="modal-content">
+            <button id="close-modal-btn" class="absolute top-4 right-4 text-gray-400 hover:text-gray-800 text-3xl leading-none">&times;</button>
+            <h3 class="text-2xl font-bold text-gray-900 mb-6 text-center">Download Brochure</h3>
+            <div class="space-y-4">
+                <a href="https://drive.google.com/file/d/1AlUzkUs2mS8Ltl_kj67-AZr63t9S54pK/view?usp=sharing" download class="block w-full text-center download-btn">
+                    <i class="fas fa-file-pdf mr-2"></i> UPR Brochure
+                </a>
+                <a href="https://drive.google.com/file/d/1AlUzkUs2mS8Ltl_kj67-AZr63t9S54pK/view?usp=sharing" download class="block w-full text-center download-btn">
+                    <i class="fas fa-file-pdf mr-2"></i> Titanium Dioxide Brochure
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        // --- Copyright Year ---
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // --- Hamburger Menu Toggle ---
+        const hamburgerButton = document.getElementById('hamburger-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        hamburgerButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+        });
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => mobileMenu.classList.remove('active'));
+        });
+
+        // --- Dynamic Header on Scroll ---
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => {
+            header.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // --- On-Scroll Reveal Animation ---
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                }
+            });
+        }, { threshold: 0.1 });
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // --- Brochure Modal Logic ---
+        const brochureTriggers = document.querySelectorAll('.brochure-trigger');
+        const brochureModal = document.getElementById('brochure-modal');
+        const modalContent = document.getElementById('modal-content');
+        const closeModalBtn = document.getElementById('close-modal-btn');
+
+        if (brochureModal && closeModalBtn && brochureTriggers.length > 0) {
+            const openModal = () => {
+                brochureModal.classList.remove('modal-hidden');
+                // Trigger reflow to apply transition
+                setTimeout(() => {
+                    modalContent.style.transform = 'scale(1)';
+                    modalContent.style.opacity = '1';
+                }, 10);
+            };
+
+            const closeModal = () => {
+                modalContent.style.transform = 'scale(0.95)';
+                modalContent.style.opacity = '0';
+                setTimeout(() => {
+                    brochureModal.classList.add('modal-hidden');
+                }, 200); // Match transition duration
+            };
+
+            brochureTriggers.forEach(trigger => {
+                trigger.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    openModal();
+                });
+            });
+
+            closeModalBtn.addEventListener('click', closeModal);
+
+            brochureModal.addEventListener('click', (e) => {
+                if (e.target === brochureModal) {
+                    closeModal();
+                }
+            });
+        }
+    </script>
+</body>
+</html>
