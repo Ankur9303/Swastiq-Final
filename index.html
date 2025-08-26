@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SWASTIQ CORPORATION</title>
-
-    <link rel="icon" type="image/x-icon" href="logo.png" >
-
+<link rel="icon" type="image/x-icon" href="logo.png" >
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -93,7 +91,7 @@
         gap: 0.5rem;
         background: linear-gradient(to right, #1e2943, #111827);
         color: white;
-        padding: 0.5rem 1.5rem;
+        padding: 0.75rem 1.75rem; /* Increased padding for better feel */
         border-radius: 9999px;
         font-weight: 600;
         box-shadow: 0 4px 10px rgba(59, 130, 246, 0.4);
@@ -174,7 +172,26 @@
         <span class="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-2xl animate-bounce text-white"><i class="fas fa-chevron-down"></i></span>
     </section>
 
-    <section id="about" class="py-20 lg:py-28 bg-white">
+    <section id="about" class="py-20 lg:py-28 bg-white overflow-hidden">
+        
+        <div class="container mx-auto px-6 mb-20 lg:mb-28">
+            <div class="reveal">
+                <h2 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-6 text-center">About Us</h2>
+                <p class="text-lg text-gray-600 mb-4 leading-relaxed max-w-4xl mx-auto">
+                    SWASTIQ CORPORATION is a trusted name in the chemical industry, engaged in manufacturing, importing, and exporting high-quality chemicals. With a strong presence across Pan India and international markets, we are committed to delivering reliable products and solutions that meet diverse industrial needs.
+                </p>
+                <p class="text-gray-600 mb-6 leading-relaxed max-w-4xl mx-auto">
+                    Our company thrives on innovation, consistency, and customer satisfaction. Backed by industry expertise and global partnerships, we ensure world-class quality, timely delivery, and competitive pricing.
+                </p>
+                <p class="text-gray-600 mb-8 leading-relaxed max-w-4xl mx-auto">
+                    At SWASTIQ CORPORATION, we believe in building long-term relationships with our clients by providing not just products, but value-driven solutions that help their businesses grow. Whether it is serving industries within India or expanding our reach to global markets, our mission remains the same — to be a reliable partner in chemicals.
+                </p>
+                <div class="text-center">
+                    <a href="#contact" class="download-btn"><i class="fas fa-envelope mr-2"></i> Get In Touch</a>
+                </div>
+            </div>
+        </div>
+        
         <div class="container mx-auto px-6">
             <div class="text-center mb-16 reveal">
                 <h2 class="text-4xl lg:text-5xl font-bold text-gray-900">Our Core Principles</h2>
@@ -281,7 +298,6 @@
         </div>
     </footer>
 
-    <!-- Brochure Download Modal -->
     <div id="brochure-modal" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 modal-hidden">
         <div class="bg-white rounded-xl shadow-2xl p-8 max-w-md w-full relative transform transition-all scale-95 opacity-0" id="modal-content">
             <button id="close-modal-btn" class="absolute top-4 right-4 text-gray-400 hover:text-gray-800 text-3xl leading-none">&times;</button>
