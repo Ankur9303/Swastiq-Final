@@ -150,7 +150,7 @@
     /* --- Logo Carousel Styles --- */
     :root {
         --logo-gap: 3rem;
-        --logo-speed: 30s;
+        --logo-speed: 15s; /* <-- SPEED INCREASED FROM 20s to 15s */
         --logo-height: 56px;
         --logo-row-padding: 1rem;
         --logo-fade-width: 60px;
@@ -177,8 +177,9 @@
         gap: var(--logo-gap);
         align-items: center;
         padding: var(--logo-row-padding);
+        width: max-content; /* <-- Important for animation */
         will-change: transform;
-        animation: scroll-right var(--logo-speed) linear infinite;
+        animation: scroll var(--logo-speed) linear infinite; /* <-- UPDATED animation name */
     }
     .scroller:hover .scroller__track {
         animation-play-state: paused;
@@ -186,9 +187,10 @@
     @media (prefers-reduced-motion: reduce) {
         .scroller__track { animation: none; }
     }
-    @keyframes scroll-right {
-        from { transform: translateX(-50%); }
-        to   { transform: translateX(0); }
+    /* UPDATED KEYFRAMES */
+    @keyframes scroll {
+        from { transform: translateX(0); }
+        to   { transform: translateX(-50%); }
     }
     .logo {
         flex: 0 0 auto;
@@ -209,12 +211,10 @@
         display: block;
         height: var(--logo-height);
         width: auto;
-        filter: grayscale(100%) contrast(1.05) saturate(0.6);
         opacity: .9;
-        transition: filter .25s ease, opacity .25s ease;
+        transition: opacity .25s ease;
     }
     .logo:hover img {
-        filter: grayscale(0%) saturate(1);
         opacity: 1;
     }
     @media (max-width: 480px) {
@@ -268,14 +268,12 @@
     </header>
 
     <main>
-        <!-- Hero Section -->
         <section class="service-hero service-hero-fallback text-white pt-32 pb-20">
             <div class="container mx-auto px-8 text-center reveal">
                  <h1 class="text-4xl md:text-6xl font-extrabold text-blue-300 mb-0">Titanium Dioxide (TiO₂)</h1>
             </div>
         </section>
 
-        <!-- Product Overview Section -->
         <section class="py-20 lg:py-28 bg-white">
             <div class="container mx-auto px-6">
                 <div class="grid md:grid-cols-2 gap-12 items-center">
@@ -294,7 +292,6 @@
             </div>
         </section>
 
-        <!-- Applications Section -->
         <section id="applications" class="py-20 lg:py-28 bg-gray-100">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-16 reveal">
@@ -303,7 +300,6 @@
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
                     
-                    <!-- Card 1: Paints -->
                     <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden reveal flex flex-col">
                         <div class="overflow-hidden"><a href="paints.html" class="block"><img src="Images/Paints.jpg" alt="Paints" class="w-full h-48 object-cover transition-transform duration-300 hover:scale-110"></a></div>
                         <div class="p-6 flex flex-col items-center text-center flex-grow">
@@ -319,7 +315,6 @@
                         </div>
                     </div>
 
-                    <!-- Card 2: Plastics -->
                     <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden reveal flex flex-col">
                         <div class="overflow-hidden"><a href="plastics.html" class="block"><img src="Images/Plastics.jpg" alt="Plastics" class="w-full h-48 object-cover transition-transform duration-300 hover:scale-110"></a></div>
                         <div class="p-6 flex flex-col items-center text-center flex-grow">
@@ -335,7 +330,6 @@
                         </div>
                     </div>
 
-                    <!-- Card 3: Inks -->
                     <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden reveal flex flex-col">
                         <div class="overflow-hidden"><a href="inks.html" class="block"><img src="Images/Inks.jpeg" alt="Inks" class="w-full h-48 object-cover transition-transform duration-300 hover:scale-110"></a></div>
                         <div class="p-6 flex flex-col items-center text-center flex-grow">
@@ -351,7 +345,6 @@
                         </div>
                     </div>
 
-                    <!-- Card 4: General Purpose -->
                     <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden reveal flex flex-col">
                         <div class="overflow-hidden"><a href="general-purpose-tio2.html" class="block"><img src="Images/Titanium-apk.jpeg" alt="General Purpose" class="w-full h-48 object-cover transition-transform duration-300 hover:scale-110"></a></div>
                         <div class="p-6 flex flex-col items-center text-center flex-grow">
@@ -367,7 +360,6 @@
                         </div>
                     </div>
 
-                    <!-- Card 5: Paper -->
                     <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden reveal flex flex-col">
                         <div class="overflow-hidden"><a href="paper.html" class="block"><img src="Images/Paper.jpg" alt="Paper" class="w-full h-48 object-cover transition-transform duration-300 hover:scale-110"></a></div>
                         <div class="p-6 flex flex-col items-center text-center flex-grow">
@@ -383,7 +375,6 @@
                         </div>
                     </div>
                     
-                    <!-- Card 6: Tiles & Ceramics -->
                     <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden reveal flex flex-col">
                         <div class="overflow-hidden"><a href="tiles-ceramics.html" class="block"><img src="Images/Tiles.jpg" alt="Tiles & Ceramics" class="w-full h-48 object-cover transition-transform duration-300 hover:scale-110"></a></div>
                         <div class="p-6 flex flex-col items-center text-center flex-grow">
@@ -403,19 +394,18 @@
             </div>
         </section>
 
-        <!-- Companies Associated Section -->
         <section class="py-15 lg:py-24 bg-white">
             <div class="container mx-auto px-26">
                 <h2 id="logo-strip-heading" class="logo-carousel-title reveal">Companies associated with us:</h2>
                 <div class="scroller reveal" role="region" aria-label="Our partners' logos scrolling horizontally">
                     <div class="scroller__track" id="logoTrack">
-                        <a class="logo" href="#" aria-label="Company 1"><img src="Images/Picture1.png" alt="Company 1 logo" loading="lazy" decoding="async"></a>
-                        <a class="logo" href="#" aria-label="Company 2"><img src="Images/Picture2.png" alt="Company 2 logo" loading="lazy" decoding="async"></a>
-                        <a class="logo" href="#" aria-label="Company 3"><img src="Images/Picture3.png" alt="Company 3 logo" loading="lazy" decoding="async"></a>
-                        <a class="logo" href="#" aria-label="Company 4"><img src="Images/Picture4.png" alt="Company 4 logo" loading="lazy" decoding="async"></a>
-                        <a class="logo" href="#" aria-label="Company 5"><img src="Images/Picture5.png" alt="Company 5 logo" loading="lazy" decoding="async"></a>
-                        <a class="logo" href="#" aria-label="Company 6"><img src="Images/Picture6.png" alt="Company 6 logo" loading="lazy" decoding="async"></a>
-                        <a class="logo" href="#" aria-label="Company 7"><img src="Images/Picture7.png" alt="Company 7 logo" loading="lazy" decoding="async"></a>
+                        <a class="logo" aria-label="Company 1"><img src="Images/Picture1.png" alt="Company 1 logo" loading="lazy" decoding="async"></a>
+                        <a class="logo" aria-label="Company 2"><img src="Images/Picture2.png" alt="Company 2 logo" loading="lazy" decoding="async"></a>
+                        <a class="logo" aria-label="Company 3"><img src="Images/Picture3.png" alt="Company 3 logo" loading="lazy" decoding="async"></a>
+                        <a class="logo" aria-label="Company 4"><img src="Images/Picture4.png" alt="Company 4 logo" loading="lazy" decoding="async"></a>
+                        <a class="logo" aria-label="Company 5"><img src="Images/Picture5.png" alt="Company 5 logo" loading="lazy" decoding="async"></a>
+                        <a class="logo" aria-label="Company 6"><img src="Images/Picture6.png" alt="Company 6 logo" loading="lazy" decoding="async"></a>
+                        <a class="logo" aria-label="Company 7"><img src="Images/Picture7.png" alt="Company 7 logo" loading="lazy" decoding="async"></a>
                     </div>
                 </div>
             </div>
@@ -470,7 +460,6 @@
         </div>
     </footer>
 
-    <!-- Brochure Download Modal -->
     <div id="brochure-modal" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 modal-hidden">
         <div class="bg-white rounded-xl shadow-2xl p-8 max-w-md w-full relative transform transition-all scale-95 opacity-0" id="modal-content">
             <button id="close-modal-btn" class="absolute top-4 right-4 text-gray-400 hover:text-gray-800 text-3xl leading-none">&times;</button>
@@ -517,6 +506,28 @@
             });
         }, { threshold: 0.1 });
         revealElements.forEach(el => revealObserver.observe(el));
+        
+        // --- NEW: Logo Carousel Duplication for Infinite Scroll ---
+        const scroller = document.querySelector('.scroller');
+        if (scroller) {
+            // Check if the user prefers reduced motion. If so, do nothing.
+            if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+                addAnimation();
+            }
+        
+            function addAnimation() {
+                const scrollerTrack = scroller.querySelector('.scroller__track');
+                const scrollerContent = Array.from(scrollerTrack.children);
+        
+                // Duplicate each item and append it to the track
+                scrollerContent.forEach(item => {
+                    const duplicatedItem = item.cloneNode(true);
+                    // Add an attribute to distinguish cloned items for accessibility reasons
+                    duplicatedItem.setAttribute('aria-hidden', true); 
+                    scrollerTrack.appendChild(duplicatedItem);
+                });
+            }
+        }
 
         // --- Brochure Modal Logic ---
         const brochureTriggers = document.querySelectorAll('.brochure-trigger');
